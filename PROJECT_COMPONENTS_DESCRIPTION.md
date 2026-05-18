@@ -329,7 +329,7 @@ code/wiki/ai-descr-ai-v3-config-rag-md-v3.sh
 | `generate_ai_unit_description` | Генерирует prompt и описание для unit. |
 | `generate_ai_class_description` | Генерирует prompt и описание для класса. |
 | `generate_ai_method_description` | Генерирует prompt и описание для метода. |
-| `enrich_unit_description` | Возвращает исходное описание unit или AI-обогащённое, если это разрешено и нужно. |
+| `enrich_unit_description` | Возвращает исходное описание unit или AI-обогащённое, если разрешено в конфиге и родное описание мало/отсутствует. |
 | `enrich_class_description` | Аналогично для класса. |
 | `enrich_method_description` | Аналогично для метода. |
 
