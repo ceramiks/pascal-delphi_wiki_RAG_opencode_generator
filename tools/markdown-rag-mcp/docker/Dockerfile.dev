@@ -1,0 +1,45 @@
+# Development Dockerfile for Markdown RAG System
+FROM python:3.12.0-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install uv for fast package management
+RUN pip install uv
+
+# Copy project files for installation
+COPY pyproject.toml README.md ./
+COPY requirements*.txt* ./
+
+# Copy source code
+COPY src/ ./src/
+COPY tests/ ./tests/
+
+# Install Python dependencies
+RUN uv pip install --system -e .[dev,test]
+
+# Create directories for models and cache
+RUN mkdir -p /app/models /app/.cache
+
+# Set environment variables
+ENV PYTHONPATH=/app/src
+ENV MARKDOWN_RAG_MODEL_CACHE_DIR=/app/models
+ENV HUGGINGFACE_HUB_CACHE=/app/.cache/huggingface
+ENV TRANSFORMERS_CACHE=/app/.cache/transformers
+
+# Expose port for potential future API
+EXPOSE 8000
+
+# Default command for development
+CMD ["bash"]
+
+# Labels for metadata
+LABEL maintainer="Kareem Mohllal <kareem.mohllal@gmail.com>"
+LABEL version="1.0.0"

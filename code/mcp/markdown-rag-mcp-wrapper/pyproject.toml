@@ -1,0 +1,15 @@
+[project]
+name = "markdown-rag-mcp-wrapper"
+version = "0.1.0"
+description = "Thin MCP wrapper around markdown-rag-mcp CLI search"
+requires-python = ">=3.12"
+dependencies = [
+    "markdown-rag-mcp",
+    "mcp>=1.10.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+markdown-rag-mcp = { path = "../markdown-rag-mcp", editable = true }

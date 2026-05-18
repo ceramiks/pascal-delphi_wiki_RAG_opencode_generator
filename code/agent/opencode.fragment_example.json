@@ -1,0 +1,35 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "experimental": {
+    "mcp_timeout": 150000
+  },
+  "instructions": [
+    "D:/Works/учёба/вкр/finalversion/AGENTS.md"
+  ],
+  "mcp": {
+    "pasls": {
+      "type": "local",
+      "command": [
+        "D:/Works/учёба/вкр/finalversion/tools/bin/mcp-language-server.exe",
+        "-workspace",
+        "D:/Works/учёба/вкр/finalversion/data/input_project/src",
+        "-lsp",
+        "D:/Works/учёба/вкр/finalversion/tools/pasls/pasls.exe"
+      ],
+      "timeout": 120000
+    },
+    "markdown_rag_wrapper": {
+      "type": "local",
+      "command": [
+        "C:/Users/Danii/AppData/Roaming/Python/Python313/Scripts/uv.exe",
+        "--directory",
+        "D:/Works/учёба/вкр/finalversion/tools/markdown-rag-mcp",
+        "run",
+        "python",
+        "D:/Works/учёба/вкр/finalversion/code/mcp/markdown-rag-mcp-wrapper/server.py"
+      ],
+      "enabled": true,
+      "timeout": 150000
+    }
+  }
+}

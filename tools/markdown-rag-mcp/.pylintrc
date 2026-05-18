@@ -1,0 +1,6 @@
+[MAIN]
+disable=C0114, E1101, R0903, C0301, W0621, W0718, W0212, C0411
+source-roots=src
+
+[BASIC]
+const-naming-style=UPPER_CASE

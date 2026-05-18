@@ -1,0 +1,161 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "markdown-rag-mcp"
+version = "1.0.0"
+description = "Local Markdown RAG system MCP with semantic search capabilities"
+authors = [
+    {name = "Kareem Mohllal", email = "kareem.mohllal@gmail.com"}
+]
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.12"
+keywords = ["rag", "markdown", "semantic-search", "vector-database", "milvus"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing :: Indexing",
+]
+
+dependencies = [
+    # Core RAG and LangChain
+    "langchain>=0.1.0",
+    "langchain-huggingface>=0.0.3",
+    "langchain-milvus>=0.1.0",
+
+    # Markdown and frontmatter processing
+    "python-frontmatter>=1.1.0",
+    "markdown-it-py>=3.0.0",
+
+    # Vector database and embeddings
+    "pymilvus>=2.3.0",
+    "sentence-transformers>=2.2.0",
+
+    # File monitoring and utilities
+    "watchdog>=3.0.0",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+
+    # CLI and configuration
+    "click>=8.0.0",
+    "rich>=13.0.0",
+    "rich-click>=1.9.3",
+    "python-dotenv>=1.0.0",
+
+    # Async support
+    "asyncio-mqtt>=0.13.0",
+    "aiofiles>=23.0.0",
+    "nest-asyncio>=1.5.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0.0",
+    "pre-commit>=3.6.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.5.0",
+]
+
+test = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0.0",
+    "pytest-mock>=3.10.0",
+    "docker>=6.0.0",
+]
+
+[project.scripts]
+markdown-rag-mcp = "markdown_rag_mcp.cli.main:main"
+
+[project.urls]
+Homepage = "https://github.com/mohllal/markdown-rag-mcp"
+Repository = "https://github.com/mohllal/markdown-rag-mcp.git"
+Issues = "https://github.com/mohllal/markdown-rag-mcp/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"*" = ["*.md", "*.yml", "*.yaml"]
+
+# Ruff configuration for linting
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+]
+ignore = [
+    "E501", # line too long, handled by black
+    "B008", # do not perform function calls in argument defaults
+    "C901", # too complex
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+# Black configuration for code formatting
+[tool.black]
+target-version = ['py312']
+line-length = 120
+skip-string-normalization = true
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+# MyPy configuration for type checking
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+
+# Pytest configuration
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers --strict-config"
+testpaths = ["tests"]
+pythonpath = ["src"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+asyncio_mode = "auto"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+    "contract: marks tests as contract tests",
+]
+
+[tool.coverage.run]
+source = ["src/markdown_rag_mcp"]
+branch = true
