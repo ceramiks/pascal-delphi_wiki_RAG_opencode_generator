@@ -37,18 +37,6 @@ tools/
 - `mcp-language-server.exe`;
 - внешний backend `markdown-rag-mcp`.
 
-## Что не относится к tools
-
-Наш MCP-wrapper не должен лежать в `tools`.
-
-Его clean-путь:
-
-```text
-finalversion/code/mcp/markdown-rag-mcp-wrapper
-```
-
-Причина: wrapper — это наш исходный код адаптера, а не внешний инструмент.
-
 ## Установка markdown-rag-mcp
 
 Если backend ещё не установлен:
@@ -91,12 +79,4 @@ test -d "$MARKDOWN_RAG_DIR" && echo "markdown-rag-mcp ok"
 
 ## Примечание
 
-Внешний backend `markdown-rag-mcp` не модифицируется. Наши изменения находятся в:
-
-```text
-code/wiki/
-code/pipeline/
-code/mcp/markdown-rag-mcp-wrapper/
-code/agent/
-.config/
-```
+Внешний backend `markdown-rag-mcp` не модифицируется
