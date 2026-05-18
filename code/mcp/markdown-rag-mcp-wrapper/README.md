@@ -24,8 +24,6 @@ sh code/pipeline/build-wiki-rag.sh
 
 ## MCP tools
 
-В чистовой версии wrapper оставляет только runtime-инструменты:
-
 - `markdown_rag_search` — поиск по Markdown RAG-индексу;
 - `markdown_rag_reload_engine` — сброс кэшированного `RAGEngine`, чтобы следующий поиск переинициализировал backend;
 - `markdown_rag_ping` — быстрая проверка, что MCP-server доступен из OpenCode.
@@ -65,8 +63,6 @@ uv --directory finalversion/tools/markdown-rag-mcp run python finalversion/code/
 Это сделано специально, чтобы не держать отдельную `.venv` внутри wrapper-папки.
 
 ## Переменные окружения
-
-Обычно они не нужны, потому что значения по умолчанию настроены под clean-структуру `finalversion`.
 
 Опционально:
 
@@ -155,23 +151,3 @@ finalversion/code/agent/opencode.fragment.json
   }
 }
 ```
-
-Если текущая версия OpenCode не поддерживает поле `environment`, его можно убрать и оставить значения по умолчанию внутри `server.py`.
-
-## Что не должно лежать в wrapper-папке
-
-В clean-версии здесь не должно быть:
-
-```text
-.venv/
-Lib/
-Scripts/
-share/
-__pycache__/
-subprocess_out.txt
-subprocess_err.txt
-debug.log
-pyvenv.cfg
-```
-
-Wrapper — это только наш исходный код MCP-адаптера, а не отдельное Python-окружение.
