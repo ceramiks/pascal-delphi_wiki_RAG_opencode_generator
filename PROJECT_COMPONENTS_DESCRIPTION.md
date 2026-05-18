@@ -143,8 +143,8 @@ AI_PROVIDER="openai-compatible"
 | `AI_PROVIDER` | Выбирает AI-провайдера: `openrouter` или `openai-compatible`. |
 | `AI_URL` | URL OpenAI-compatible endpoint. Используется только при `AI_PROVIDER="openai-compatible"`. В режиме `openrouter` игнорируется. |
 | `OPENROUTER_API_KEY` | Ключ OpenRouter. Используется только при `AI_PROVIDER="openrouter"`. |
-| `AI_MODEL` | Имя модели у выбранного провайдера. При смене provider обычно нужно менять и модель. |
-| `AI_TEMPERATURE` | Температура генерации. Чем ниже, тем стабильнее и менее творчески. |
+| `AI_MODEL` | Имя модели у выбранного провайдера. |
+| `AI_TEMPERATURE` | Температура генерации. |
 | `AI_MAX_TOKENS` | Лимит токенов ответа модели. |
 | `AI_ENRICH_UNITS` | Генерировать ли AI-описания для unit-файлов. |
 | `AI_ENRICH_CLASSES` | Генерировать ли AI-описания для классов. |
@@ -203,7 +203,7 @@ AI_MODEL="qwen2.5-coder:3b"
 | `RAG_SEARCH_LIMIT` | Количество результатов для контрольного поиска. |
 | `RAG_SEARCH_THRESHOLD` | Порог похожести для контрольного поиска. |
 
-`rag-pipeline.local.conf` — центральное место для путей. Благодаря ему в скриптах не нужно держать временные пути. Вместо этого используется стабильный путь.
+`rag-pipeline.local.conf` — центральное место для путей.
 
 ### 4.2. example
 
@@ -588,7 +588,7 @@ data/input_project/GpDelphiUnits_very_mini
 | Путь | Назначение |
 |---|---|
 | `data/wiki_out/current` | Стабильная текущая wiki. Открывается в Obsidian и индексируется в RAG. |
-| `data/wiki_out/last_wiki_dir.txt` | Маркер последнего пути wiki. Сейчас обычно содержит путь к `current`. |
+| `data/wiki_out/last_wiki_dir.txt` | Маркер последнего пути wiki. Сейчас содержит путь к `current`. |
 
 Примеры wiki-файлов:
 Home.md
@@ -608,7 +608,6 @@ GpLockFreeQueue.md
 | Путь | Назначение |
 |---|---|
 | `data/cache/ai-descriptions` | Кэш AI-описаний, чтобы не делать повторные запросы к модели. |
-| `data/cache/markdown-rag-mcp-wrapper.log` | Старый/альтернативный лог wrapper-а из предыдущих версий. В актуальной версии основной лог находится в `data/logs`. |
 
 ### 11.5. `data/logs`
 
@@ -709,7 +708,7 @@ PROJECT_ROOT
 → OpenCode при необходимости уточняет через pasls/исходники
 → OpenCode отвечает пользователю
 
-## 14. Что считается своим кодом, а что внешней зависимостью
+## 14. Код
 
 ### Свой код
 
