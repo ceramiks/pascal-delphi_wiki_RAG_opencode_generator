@@ -234,7 +234,7 @@ xml_values_csv() {
     # Эти списки используются только для RAG-поисковых ключей.
     # Отсутствие узлов здесь нормально: в unit может не быть types/variables/routines,
     # а в class может не быть fields/properties/methods.
-    # Но настоящие ошибки xmlstarlet, например битый XPath или XML, не скрываем.
+    # Но настоящие ошибки xmlstarlet, например битый XPath или XML.
     xmlstarlet_sel "$xml_file" -t -m "$xpath" -v "$value_expr" -n > "$values_file" 2> "$error_file"
     status=$?
 
@@ -803,7 +803,7 @@ EOF_MD
         method_id="${unit_name}.${class_name}.${name}"
         [ "${item_count:-0}" -gt 1 ] && method_id="${method_id}#${item_index}"
 
-        echo "#### Method: ${class_name}.${name}" >> "$class_md"
+        echo "### Method: ${class_name}.${name}" >> "$class_md"
         echo "" >> "$class_md"
         echo "**ID:** \`${method_id}\`" >> "$class_md"
         [ -n "$decl" ] && echo "**Объявление:** \`$decl\`" >> "$class_md"
@@ -853,7 +853,7 @@ add_properties() {
 
         [ -z "$name" ] && continue
 
-        echo "#### $name" >> "$class_md"
+        echo "### $name" >> "$class_md"
         echo "" >> "$class_md"
         [ "${item_count:-0}" -gt 1 ] && echo "**ID:** \`${name}#${item_index}\`" >> "$class_md"
         [ -n "$type" ] && echo "**Тип:** $type" >> "$class_md"
@@ -892,7 +892,7 @@ generate_markdown_section() {
 
         [ -z "$name" ] && continue
 
-        echo "#### $name" >> "$output_file"
+        echo "### $name" >> "$output_file"
         echo "" >> "$output_file"
         [ "${item_count:-0}" -gt 1 ] && echo "**ID:** \`${name}#${item_index}\`" >> "$output_file"
         [ -n "$decl" ] && echo "**Объявление:** \`$decl\`" >> "$output_file"
@@ -997,8 +997,14 @@ process_classes() {
 
         # Имя class-файла уже содержит unit, поэтому коллизии одноимённых классов из разных unit не сливаются.
         create_class_markdown "$class_md" "$class_name" "$class_desc" "$ancestor_name" "$unit_name" "$xml_file" "$source_path" "$ai_source_file"
-
-        echo "- ${class_link} (${ancestor_name:-нет}) — ${class_desc}" >> "$md_file"
+        {
+            echo "### Class: ${class_name}"
+            echo ""
+            echo "**Ссылка:** ${class_link}"
+            echo "**Наследник:** ${ancestor_name:-нет}"
+            echo "${class_desc}"
+            echo ""
+        } >> "$md_file"
     done < "$class_rows"
 }
 
